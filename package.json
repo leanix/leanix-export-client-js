@@ -1,11 +1,24 @@
 {
-  "name": "leanix-export-client-javascript",
-  "version": "0.0.0",
-  "description": "JQuery library to use leanix export / printing",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Daniel Pozzi <daniel.pozzi@leanix.net",
-  "license": "MIT"
+    "name": "leanix-export-client-javascript",
+    "version": "0.0.0",
+    "description": "JQuery library to use leanix export / printing",
+    "main": "jquery.leanix-export-client.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/leanix/leanix-export-client-javascript"
+    },
+
+    "author": {
+        "name": "Daniel Pozzi",
+        "email": "daniel.pozzi@leanix.net"
+    },
+    "license": "MIT",
+
+    "bugs": {
+        "url": "https://github.com/leanix/leanix-export-client-javascript/issues"
+    },
+    "homepage": "https://github.com/leanix/leanix-export-client-javascript"
 }
