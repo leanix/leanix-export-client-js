@@ -2,24 +2,13 @@
  * leanix-export-client
  * ====================
  *
- * This widget handles print exports.
- *
- * Options:
- * --------
- * dataSelector: a selector to send a dom element to the export service.
- * name: name of the file
- * inputType: HTML | SVG
- * outputType: SVG | PNG | JPG | PDF
- * paperSize: phantomJS papersize object (without header or footer, these can be set separately)
- * header: header object
- * footer: footer object
  */
 jQuery.widget("lx.exportclient", {
     options: {
         exportServer: "https://export.leanix.net",
         name: "export",
         inputType: "HTML",
-        outputType: 'pdf',
+        outputType: null,
         dataSelector: null,
         paperSize: null,
         header: null,
@@ -34,31 +23,45 @@ jQuery.widget("lx.exportclient", {
      */
     _create: function ()
     {
+        if (this.options.exportServer === null)
+            throw "The exportServer url must be set.";
+
         if (this.options.dataSelector === null)
             throw "The dataSelector option must be set.";
 
-        this.outputType = $(
-            "<select><option value='pdf'>PDF</option><option value='PNG'>PNG</option><option value='JPG'>JPG</option></select>", 
-            { class: 'class="form-control"', id: 'inputType'}
-        ).appendTo(this.element);
+        if (this.options.outputType === null)
+        {
+            this.outputType = $(
+                "<select><option value='pdf'>PDF</option><option value='PNG'>PNG</option><option value='JPG'>JPG</option></select>",
+                { class: 'class="form-control"', id: 'outputType'}
+            ).appendTo(this.element);
+            this.options.outputType = function(){return $(this.outputType).val();};
+        }
 
         if (this.options.paperSize === null)
+        {
             this.paperSize = $(
-                "<select><option value='A4.portrait'>A4 portrait</option><option value='A4.landscape'>A4 landscape</option><option value='A3.portrait'>A3 portrait</option><option value='A3.landscape'>A3 landscape</option></select>", 
+                "<select><option value='A4.portrait'>A4 portrait</option><option value='A4.landscape'>A4 landscape</option><option value='A3.portrait'>A3 portrait</option><option value='A3.landscape'>A3 landscape</option><option value='letter.portrait'>Letter portrait</option><option value='letter.landscape'>Letter landscape</option></select>",
                 { class: 'class="form-control"', id: 'inputType'}
             ).appendTo(this.element);
-        
-        this.exportButton = $("<button>", {
-            text: "Export",
-            class: "btn btn-default"
-        }).appendTo(this.element).button();
-        
+
+            this.options.paperSize = function()
+            {
+                var format = $(this.paperSize).val().split('.')[0];
+                var orientation = $(this.paperSize).val().split('.')[1];
+                return {
+                    format: format,
+                    orientation: orientation,
+                    margin: "1cm"
+                };
+            };
+        }
+
         this.exportResult = $("<div></div>", {
             id: "export-result"
         }).appendTo(this.element).button();
-
-        this._on(this.exportButton, {click: "export"});
     },
+
     /**
      * Reads all css rules.
      * 
@@ -85,17 +88,7 @@ jQuery.widget("lx.exportclient", {
      */
     getPapersize: function()
     {
-        var paperSize;
-        if (this.options.paperSize !== null)
-            paperSize = this.options.paperSize;
-        
-        var format = $(this.paperSize).val().split('.')[0];
-        var orientation = $(this.paperSize).val().split('.')[1];
-        paperSize = {
-            format: format,
-            orientation: orientation,
-            margin: "1cm"
-        };
+        var paperSize = typeof this.options.paperSize == "function" ? this.options.paperSize() : this.options.paperSize;
         if (this.options.header !== null)
             paperSize.header = this.options.header;
         if (this.options.footer !== null)
@@ -103,29 +96,34 @@ jQuery.widget("lx.exportclient", {
         
         return paperSize;
     },
-    
+
+    getPayload: function()
+    {
+        if (typeof this.options.dataSelector == "function")
+            return this.options.outputType();
+
+        return $(this.options.dataSelector).prop('outerHTML');
+    },
+
     /**
      * Main function.
      * 
-     * @param {event} event
-     * @returns {undefined}
      */
-    export: function (event)
+    export: function ()
     {
-        event.preventDefault();
         var url = this.options.exportServer + '/exports';
 
         var data = {
-            inputType: this.options.inputType,
-            outputType: $(this.outputType).val(),
-            data: $(this.options.dataSelector).prop('outerHTML'),
+            inputType: typeof this.options.inputType == "function" ? this.options.inputType() : this.options.inputType,
+            outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
+            data: this.getPayload(),
             styles: this.getStyles(),
             name: this.options.name,
             paperSize: this.getPapersize()
         };
 
 
-        this.exportResult.html('Generating ...');
+        this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
         var that = this;
         $.ajax({
             headers: {
