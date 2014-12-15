@@ -1,6 +1,7 @@
 {
   "name": "leanix-export-client-javascript",
   "version": "0.0.0",
+  "main": "jquery.leanix-export-client.js",
   "homepage": "https://github.com/leanix/leanix-export-client-javascript",
   "authors": [
     "Daniel Pozzi <daniel.pozzi@leanix.net>"
