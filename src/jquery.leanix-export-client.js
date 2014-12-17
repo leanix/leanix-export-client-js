@@ -132,6 +132,7 @@ jQuery.widget("lx.exportclient", {
             },
             url: url,
             type: 'POST',
+            crossDomain: true,
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result)
