@@ -108,7 +108,7 @@ jQuery.widget("lx.exportclient", {
         var data = {
             inputType: typeof this.options.inputType == "function" ? this.options.inputType() : this.options.inputType,
             outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
-            data: this.getPayload(),
+            data: this.options.dataSelector(),
             styles: this.getStyles(),
             name: this.options.name,
             paperSize: this.getPapersize()
@@ -125,7 +125,7 @@ jQuery.widget("lx.exportclient", {
             url: url,
             type: 'POST',
             crossDomain: true,
-            data: JSON.stringify(this.options.dataSelector()),
+            data: JSON.stringify(data),
             dataType: 'json',
             success: function (result)
             {
