@@ -26,8 +26,8 @@ jQuery.widget("lx.exportclient", {
         if (this.options.exportServer === null)
             throw "The exportServer url must be set.";
 
-        if (this.options.dataSelector === null)
-            throw "The dataSelector option must be set.";
+        if (typeof this.options.dataSelector !== "function")
+            throw "The dataSelector option must be a function.";
 
         if (this.options.outputType === null)
         {
@@ -97,14 +97,6 @@ jQuery.widget("lx.exportclient", {
         return paperSize;
     },
 
-    getPayload: function()
-    {
-        if (typeof this.options.dataSelector == "function")
-            return this.options.dataSelector();
-
-        return $(this.options.dataSelector).prop('outerHTML');
-    },
-
     /**
      * Main function.
      * 
@@ -133,7 +125,7 @@ jQuery.widget("lx.exportclient", {
             url: url,
             type: 'POST',
             crossDomain: true,
-            data: JSON.stringify(data),
+            data: JSON.stringify(this.options.dataSelector()),
             dataType: 'json',
             success: function (result)
             {
