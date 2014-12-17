@@ -100,7 +100,7 @@ jQuery.widget("lx.exportclient", {
     getPayload: function()
     {
         if (typeof this.options.dataSelector == "function")
-            return this.options.outputType();
+            return this.options.dataSelector();
 
         return $(this.options.dataSelector).prop('outerHTML');
     },
