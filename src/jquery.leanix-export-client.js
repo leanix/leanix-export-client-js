@@ -140,6 +140,10 @@ jQuery.widget("lx.exportclient", {
                         .attr('title', 'Download ' + result.data.fileName);
                 that.exportResult.html('');
                 that.exportResult.append(link);
+            },
+            error: function ()
+            {
+                that.exportResult.html('An error occurred.');
             }
         });
 
