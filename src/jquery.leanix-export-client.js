@@ -114,6 +114,8 @@ jQuery.widget("lx.exportclient", {
             paperSize: this.getPapersize()
         };
 
+        if (data.name.length == 0)
+            data.name = "export";
 
         this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
         var that = this;
