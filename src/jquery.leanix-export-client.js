@@ -131,7 +131,7 @@ jQuery.widget("lx.exportclient", {
             {
                 if (result.status != 'OK')
                 {
-                    this.exportResult.html('Error during export');
+                    that.exportResult.html('Error during export');
                     return;
                 }
 
@@ -141,6 +141,7 @@ jQuery.widget("lx.exportclient", {
                 that.exportResult.html('');
                 that.exportResult.append(link);
             },
+
             error: function ()
             {
                 that.exportResult.html('An error occurred.');
