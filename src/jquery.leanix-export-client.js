@@ -110,7 +110,7 @@ jQuery.widget("lx.exportclient", {
             outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
             data: this.options.dataSelector(),
             styles: this.getStyles(),
-            name: this.options.name,
+            name: typeof this.options.name == "function" ? this.options.name() : this.options.name,
             paperSize: this.getPapersize()
         };
 
