@@ -12,7 +12,8 @@ jQuery.widget("lx.exportclient", {
         dataSelector: null,
         paperSize: null,
         header: null,
-        footer: null
+        footer: null,
+        viewPort: null
     },
     
     /**
@@ -97,6 +98,14 @@ jQuery.widget("lx.exportclient", {
         return paperSize;
     },
 
+    getViewPort: function()
+    {
+        if (this.options.viewPort == null)
+            return null;
+
+        return typeof this.options.viewPort == "function" ? this.options.viewPort() : this.options.viewPort;
+    },
+
     getName: function()
     {
         var name = typeof this.options.name == "function" ? this.options.name() : this.options.name;
@@ -119,7 +128,8 @@ jQuery.widget("lx.exportclient", {
             data: this.options.dataSelector(),
             styles: this.getStyles(),
             name: this.getName(),
-            paperSize: this.getPapersize()
+            paperSize: this.getPapersize(),
+            viewPort: this.getViewPort()
         };
 
 
