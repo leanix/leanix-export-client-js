@@ -123,11 +123,11 @@ jQuery.widget("lx.exportclient", {
         var url = this.options.exportServer + '/exports';
 
         var data = {
+            name: this.getName(),
             inputType: typeof this.options.inputType == "function" ? this.options.inputType() : this.options.inputType,
             outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
             data: this.options.dataSelector(),
             styles: this.getStyles(),
-            name: this.getName(),
             paperSize: this.getPapersize(),
             viewportSize: this.getViewportSize()
         };
