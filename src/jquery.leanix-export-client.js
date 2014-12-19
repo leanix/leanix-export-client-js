@@ -97,6 +97,14 @@ jQuery.widget("lx.exportclient", {
         return paperSize;
     },
 
+    getName: function()
+    {
+        var name = typeof this.options.name == "function" ? this.options.name() : this.options.name;
+        if (name.length == 0 || typeof name != "string")
+            name = "export";
+        return name;
+    },
+
     /**
      * Main function.
      * 
@@ -110,12 +118,11 @@ jQuery.widget("lx.exportclient", {
             outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
             data: this.options.dataSelector(),
             styles: this.getStyles(),
-            name: typeof this.options.name == "function" ? this.options.name() : this.options.name,
+            name: this.getName(),
             paperSize: this.getPapersize()
         };
 
-        if (data.name.length == 0)
-            data.name = "export";
+
 
         this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
         var that = this;
@@ -133,11 +140,12 @@ jQuery.widget("lx.exportclient", {
             {
                 if (result.status != 'OK')
                 {
-                    that.exportResult.html('Error during export');
+                    that.exportResult.html('');
+                    that.exportResult.append('An error has occurred.');
                     return;
                 }
 
-                var link = $('<a><img src="' + that.options.exportServer + '/' + result.data.previewUrl + '" alt="preview"/></a>')
+                var link = $('<a><img src="' + that.options.exportServer + '/' + result.data.previewUrl + '" alt="preview" class="img-responsive" style="max-width: 100px; max-height: 100px;"/><br />Download the export</a>')
                         .attr('href', that.options.exportServer + '/' + result.data.relativeUrl)
                         .attr('title', 'Download ' + result.data.fileName);
                 that.exportResult.html('');
@@ -146,7 +154,8 @@ jQuery.widget("lx.exportclient", {
 
             error: function ()
             {
-                that.exportResult.html('An error occurred.');
+                that.exportResult.html('');
+                that.exportResult.append('An error has occurred.');
             }
         });
 
