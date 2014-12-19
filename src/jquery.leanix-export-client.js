@@ -13,7 +13,7 @@ jQuery.widget("lx.exportclient", {
         paperSize: null,
         header: null,
         footer: null,
-        viewPort: null
+        viewportSize: null
     },
     
     /**
@@ -98,12 +98,12 @@ jQuery.widget("lx.exportclient", {
         return paperSize;
     },
 
-    getViewPort: function()
+    getViewportSize: function()
     {
-        if (this.options.viewPort == null)
+        if (this.options.viewportSize == null)
             return null;
 
-        return typeof this.options.viewPort == "function" ? this.options.viewPort() : this.options.viewPort;
+        return typeof this.options.viewportSize == "function" ? this.options.viewportSize() : this.options.viewportSize;
     },
 
     getName: function()
@@ -129,7 +129,7 @@ jQuery.widget("lx.exportclient", {
             styles: this.getStyles(),
             name: this.getName(),
             paperSize: this.getPapersize(),
-            viewPort: this.getViewPort()
+            viewportSize: this.getViewportSize()
         };
 
 
