@@ -132,8 +132,7 @@ jQuery.widget("lx.exportclient", {
             styles: this.getStyles(),
             paperSize: this.getPapersize(),
             viewportSize: this.getViewportSize(),
-            zoomFactor: typeof this.options.zoomFactor == "function" ? this.options.zoomFactor() : this.options.zoomFactor,
-            autoScale: typeof this.options.autoScale == "function" ? this.options.autoScale() : this.options.autoScale
+            zoomFactor: typeof this.options.zoomFactor == "function" ? this.options.zoomFactor() : this.options.zoomFactor
         };
 
 
