@@ -13,7 +13,8 @@ jQuery.widget("lx.exportclient", {
         paperSize: null,
         header: null,
         footer: null,
-        viewportSize: null
+        viewportSize: null,
+        zoomFactor: 1
     },
     
     /**
@@ -129,7 +130,8 @@ jQuery.widget("lx.exportclient", {
             data: this.options.dataSelector(),
             styles: this.getStyles(),
             paperSize: this.getPapersize(),
-            viewportSize: this.getViewportSize()
+            viewportSize: this.getViewportSize(),
+            zoomFactor: this.options.zoomFactor
         };
 
 
