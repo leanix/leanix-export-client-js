@@ -15,7 +15,7 @@ jQuery.widget("lx.exportclient", {
         footer: null,
         viewportSize: null,
         zoomFactor: 1,
-        autoScale: false
+        autoScale: null
     },
     
     /**
@@ -93,9 +93,9 @@ jQuery.widget("lx.exportclient", {
     {
         var paperSize = typeof this.options.paperSize == "function" ? this.options.paperSize() : this.options.paperSize;
         if (this.options.header !== null)
-            paperSize.header = this.options.header;
+            paperSize.header = typeof this.options.header == "function" ? this.options.header() : this.options.header;
         if (this.options.footer !== null)
-            paperSize.footer = this.options.footer;
+            paperSize.footer = typeof this.options.footer == "function" ? this.options.footer() : this.options.footer;
         
         return paperSize;
     },
