@@ -92,6 +92,9 @@ jQuery.widget("lx.exportclient", {
     getPapersize: function()
     {
         var paperSize = typeof this.options.paperSize == "function" ? this.options.paperSize() : this.options.paperSize;
+        if (paperSize == null)
+            return null;
+
         if (this.options.header !== null)
             paperSize.header = typeof this.options.header == "function" ? this.options.header() : this.options.header;
         if (this.options.footer !== null)
