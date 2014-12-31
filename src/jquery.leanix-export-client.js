@@ -5,7 +5,7 @@
  */
 jQuery.widget("lx.exportclient", {
     options: {
-        exportServer: "https://export.leanix.net",
+        exportServer: null,
         name: "export",
         inputType: "HTML",
         outputType: null,
@@ -96,9 +96,9 @@ jQuery.widget("lx.exportclient", {
             return null;
 
         if (this.options.header !== null)
-            paperSize.header = typeof this.options.header == "function" ? this.options.header() : this.options.header;
+            paperSize.header = this.options.header();
         if (this.options.footer !== null)
-            paperSize.footer = typeof this.options.footer == "function" ? this.options.footer() : this.options.footer;
+            paperSize.footer = this.options.footer();
         
         return paperSize;
     },
