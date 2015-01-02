@@ -75,6 +75,8 @@ jQuery.widget("lx.exportclient", {
         var buffer = "";
         for (var i = 0; i < document.styleSheets.length; i++)
         {
+            if (document.styleSheets[i].cssRules == null)
+                continue;
             for (var j = 0; j < document.styleSheets[i].cssRules.length; j++)
             {
                 buffer += document.styleSheets[i].cssRules[j].cssText;
