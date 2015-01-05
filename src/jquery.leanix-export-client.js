@@ -164,18 +164,11 @@ jQuery.widget("lx.exportclient", {
                     return;
                 }
 
-                if (data.outputType.toLowerCase() == 'svg')
-                {
-                    var link = $('<a>Download the SVG image.</a>')
-                        .attr('href', that.options.exportServer + '/' + result.data.relativeUrl)
-                        .attr('title', 'Download ' + result.data.fileName);
-                }
-                else
-                {
-                    var link = $('<a><img src="' + that.options.exportServer + '/' + result.data.previewUrl + '" alt="preview" class="img-responsive" style="max-width: 100px; max-height: 100px;"/><br />Download the export</a>')
-                        .attr('href', that.options.exportServer + '/' + result.data.relativeUrl)
-                        .attr('title', 'Download ' + result.data.fileName);
-                }
+
+                var link = $('<a class="btn btn-default" target="_blank">Download ' + result.data.fileName + '</a>')
+                      .attr('href', that.options.exportServer + '/' + result.data.relativeUrl)
+                      .attr('title', 'Download ' + result.data.fileName);
+
                 that.exportResult.html('');
                 that.exportResult.append(link);
             },
