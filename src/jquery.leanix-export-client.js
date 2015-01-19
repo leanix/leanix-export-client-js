@@ -15,7 +15,8 @@ jQuery.widget("lx.exportclient", {
         footer: null,
         viewportSize: null,
         zoomFactor: 1,
-        autoScale: null
+        autoScale: null,
+        getStyles: null
     },
     
     /**
@@ -134,7 +135,7 @@ jQuery.widget("lx.exportclient", {
             inputType: typeof this.options.inputType == "function" ? this.options.inputType() : this.options.inputType,
             outputType: typeof this.options.outputType == "function" ? this.options.outputType() : this.options.outputType,
             data: this.options.dataSelector(),
-            styles: this.getStyles(),
+            styles: typeof this.options.getStyles == "function" ? this.options.getStyles() : this.getStyles(),
             paperSize: this.getPapersize(),
             viewportSize: this.getViewportSize(),
             zoomFactor: typeof this.options.zoomFactor == "function" ? this.options.zoomFactor() : this.options.zoomFactor,
