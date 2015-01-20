@@ -153,6 +153,7 @@ jQuery.widget("lx.exportclient", {
      */
     export: function ()
     {
+        this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
         var url = this.options.exportServer + '/exports';
 
         var data = {
@@ -169,7 +170,6 @@ jQuery.widget("lx.exportclient", {
         data = this.applyHeaderImageHack(data);
 
 
-        this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
         var that = this;
         $.ajax({
             headers: {
