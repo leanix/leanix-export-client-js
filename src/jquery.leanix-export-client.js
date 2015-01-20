@@ -123,6 +123,31 @@ jQuery.widget("lx.exportclient", {
     },
 
     /**
+     * Images in header are not displayed.
+     *
+     * @see https://github.com/ariya/phantomjs/pull/359
+     * @param data
+     */
+    applyHeaderImageHack: function(data)
+    {
+        //no header present
+        if (typeof data.paperSize.header.contentsCallbackBody == "undefined")
+            return data;
+
+        //no image present
+        if (data.paperSize.header.contentsCallbackBody.indexOf('<img') == -1)
+            return data;
+
+        //browser safe outerHTML
+        var unused = $('<div>');
+        unused.append(
+            $('<div style="display: none">').append(data.paperSize.header.contentsCallbackBody)
+        );
+        data.data = unused.html() + data.data;
+        return data;
+    },
+
+    /**
      * Main function.
      * 
      */
@@ -141,7 +166,7 @@ jQuery.widget("lx.exportclient", {
             zoomFactor: typeof this.options.zoomFactor == "function" ? this.options.zoomFactor() : this.options.zoomFactor,
             autoScale: typeof this.options.autoScale == "function" ? this.options.autoScale() : this.options.autoScale
         };
-
+        data = this.applyHeaderImageHack(data);
 
 
         this.exportResult.html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
