@@ -130,7 +130,7 @@ jQuery.widget("lx.exportclient", {
      */
     applyHeaderImageHack: function(data)
     {
-        if (data.outputType.toLowerCase() == 'svg')
+        if (data.outputType.toLowerCase() == 'svg' || data.outputType.toLowerCase() == 'png')
             return data;
 
         //no header present
