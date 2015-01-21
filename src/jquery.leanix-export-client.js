@@ -189,7 +189,8 @@ jQuery.widget("lx.exportclient", {
                 if (result.status != 'OK')
                 {
                     that.exportResult.html('');
-                    that.exportResult.append('An error has occurred.');
+                    that.exportResult.append('<p class="text-error">There has been a problem generating the output by the server.</p>');
+                    window.console && console.log(result);
                     return;
                 }
 
@@ -205,7 +206,7 @@ jQuery.widget("lx.exportclient", {
             error: function ()
             {
                 that.exportResult.html('');
-                that.exportResult.append('An error has occurred.');
+                that.exportResult.append('<p class="text-error">An error has occurred.</p>');
             }
         });
 
