@@ -203,10 +203,11 @@ jQuery.widget("lx.exportclient", {
                 that.exportResult.append(link);
             },
 
-            error: function ()
+            error: function (jqXHR, textStatus, errorThrown)
             {
                 that.exportResult.html('');
                 that.exportResult.append('<p class="text-error">An error has occurred.</p>');
+                window.console && console.log(textStatus, errorThrown);
             }
         });
 
