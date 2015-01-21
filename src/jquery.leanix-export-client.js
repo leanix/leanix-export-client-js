@@ -184,6 +184,8 @@ jQuery.widget("lx.exportclient", {
             crossDomain: true,
             data: JSON.stringify(data),
             dataType: 'json',
+            timeout: 30000,
+            cache: false,
             success: function (result)
             {
                 if (result.status != 'OK')
