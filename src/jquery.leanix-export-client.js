@@ -197,7 +197,7 @@ jQuery.widget("lx.exportclient", {
                 }
 
 
-                var link = $('<a class="btn btn-default" target="_blank">Download ' + result.data.fileName + '</a>')
+                var link = $('<a class="btn btn-primary" target="_blank">Download</a>')
                       .attr('href', that.options.exportServer + '/' + result.data.relativeUrl)
                       .attr('title', 'Download ' + result.data.fileName);
 
