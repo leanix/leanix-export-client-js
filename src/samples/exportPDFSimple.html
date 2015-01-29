@@ -1,0 +1,58 @@
+<html>
+<head>
+    <link href="../bootstrap.css" rel="stylesheet" />
+    <link href="../font-awesome.css" rel="stylesheet" />
+
+    <script src="../jquery.js"></script>
+    <script src="../bootstrap.js"></script>
+    <script src="../lxexportclient.js"></script>
+    <style>
+        .simple-style {
+            background-color: #d8d8d8;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="row-fluid">
+    <form class="form-inline">
+        <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
+        <a href="#" class="btn btn-primary" id="submit">Export</a>
+        <div id="result"></div>
+    </form>
+</div>
+
+
+<div id="exportTarget">
+    <div class="simple-style">
+        Hello World
+    </div>
+</div>
+
+<script>
+    $(document).ready(function()
+    {
+        $(document).on("click", "#submit", function(event)
+        {
+            event.preventDefault();
+
+            var client = new ExportClient($('#serverUrl').val());
+            var data = new ExportData();
+
+            data.setData($('#exportTarget').html());
+            data.extractStyles();
+            data.getPaperSize().setFormat('A3');
+            data.getPaperSize().setOrientation('landscape');
+
+            client.export(data, function(result)
+            {
+                var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
+
+                $('#result').append(download);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
