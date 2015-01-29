@@ -185,6 +185,7 @@ jQuery.widget("lx.exportclient", {
             data: JSON.stringify(data),
             dataType: 'json',
             timeout: 30000,
+            async: true,
             cache: false,
             success: function (result)
             {
