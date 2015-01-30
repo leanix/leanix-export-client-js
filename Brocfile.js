@@ -51,7 +51,8 @@ var appJs = concatenate(app, {
         'js/ExportData.js',
         'js/ExportClient.js',
         'js/ExportPaperSize.js',
-        'js/ExportMarginObject.js'
+        'js/ExportMarginObject.js',
+        'js/jquery.exportclient.js'
     ],
     outputFile : '/lxexportclient.js',
     header     : '/** Copyright LeanIX GmbH 2014 **/'

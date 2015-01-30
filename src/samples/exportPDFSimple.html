@@ -4,6 +4,7 @@
     <link href="../font-awesome.css" rel="stylesheet" />
 
     <script src="../jquery.js"></script>
+    <script src="../jquery-ui.js"></script>
     <script src="../bootstrap.js"></script>
     <script src="../lxexportclient.js"></script>
     <style>
@@ -17,7 +18,8 @@
 <div class="row-fluid">
     <form class="form-inline">
         <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
-        <a href="#" class="btn btn-primary" id="submit">Export</a>
+        <a href="#" class="btn btn-primary" id="export">Export</a>
+        <span class="status"></span>
         <div id="result"></div>
     </form>
 </div>
@@ -32,31 +34,42 @@
 <script>
     $(document).ready(function()
     {
-        $(document).on("click", "#submit", function(event)
+        // Default data
+        var data = new ExportData();
+        data.setOutputType('PDF');
+        data.getPaperSize().setFormat('A4');
+        data.getPaperSize().setOrientation('portrait');
+        data.getPaperSize().getHeader().setHeight('0.8in');
+        data.getPaperSize().getHeader().setContents('<h1>Header Text</h1>');
+        data.getPaperSize().getFooter().setHeight('0.2in');
+        data.getPaperSize().getFooter().setContents('<div>Footer</div>');
+
+        // Initialize export client
+        $('#export').exportclient({
+            serverUrl: $('#serverUrl').val(),
+            defaultData : data
+        });
+
+        // React on the button event
+        $(document).on("click", "#export", function(event)
         {
-            event.preventDefault();
-
-            var client = new ExportClient($('#serverUrl').val());
-            var data = new ExportData();
-
-            data.setData($('#exportTarget').html());
-            data.extractStyles();
-            data.setOutputType('PDF');
-            data.getPaperSize().setFormat('A3');
-            data.getPaperSize().setOrientation('landscape');
-
-            data.getPaperSize().getHeader().setHeight('0.8in');
-            data.getPaperSize().getHeader().setContents('<h1>Header Text</h1>');
-            data.getPaperSize().getFooter().setHeight('0.2in');
-            data.getPaperSize().getFooter().setContents('<div>Footer</div>');
-
-            client.export(data, function(result)
+            $('.status').html('Exporting ...');
+            $('#export').data('lx-exportclient').export(function (result)
             {
+                $('.status').html('Done');
                 var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
 
                 $('#result').html(download);
             });
         });
+
+        $('#export').data('lx-exportclient').onGetData(function(data)
+        {
+            data.setData($('#exportTarget').html());
+            data.extractStyles();
+            return data;
+        });
+
     });
 </script>
 
