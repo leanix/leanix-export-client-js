@@ -6,6 +6,7 @@
     <script src="../jquery.js"></script>
     <script src="../jquery-ui.js"></script>
     <script src="../bootstrap.js"></script>
+    <script src="../bootbox.js"></script>
 
     <script src="../exportclient.js"></script>
     <script src="../jquery.exportclient.js"></script>
@@ -34,7 +35,9 @@
     <form class="form-inline">
         <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
 
-        <div id="export" class="export-button"></div>
+        <div id="exportButton" class="export-button"></div>
+        <div id="exportDialog"></div>
+        <a href="#" id="exportDialogBtn">Export Dialog</a>
 
         <span class="status"></span>
         <div id="result"></div>
@@ -65,16 +68,35 @@
         data.getPaperSize().getFooter().setContents('<div>Footer</div>');
 
         // Initialize export client
-        $('#export').exportButton({
+        $('#exportButton').exportButton({
             serverUrl: $('#serverUrl').val(),
             defaultData : data
         });
 
         // Inject data from view
-        $('#export').on('exportbuttonbeforeexport', function(event)
+        $('#exportButton').on('exportbuttonbeforeexport', function(event)
         {
             data.setData($('#exportTarget').html());
             data.extractStyles();
+        });
+
+        // Dialog
+        $('#exportDialog').exportDialog({
+            serverUrl: $('#serverUrl').val(),
+            defaultData : data
+        });
+
+        // Inject data from view
+        $('#exportDialog').on('exportdialogbeforeexport', function(event)
+        {
+            data.setData($('#exportTarget').html());
+            data.extractStyles();
+        });
+
+        $('#exportDialogBtn').on('click', function(event)
+        {
+            event.preventDefault();
+            $('#exportDialog').data('lx-exportDialog').showDialog();
         });
     });
 </script>
