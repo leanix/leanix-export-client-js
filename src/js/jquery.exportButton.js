@@ -4,7 +4,8 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         enabled : true,
         labelButton : 'Save as ...',
         cssClassButton : 'btn btn-primary',
-        disabledTooltip: 'Please wait until page is loaded.'
+        disabledTooltip: 'Please wait until page is loaded.',
+        tooltipPlacement: 'bottom'
     },
 
     button : null,
@@ -46,6 +47,8 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
     {
         if (typeof enabled == 'undefined')
             enabled = true;
+
+        this.button.attr('data-placement', this.options.tooltipPlacement);
 
         if (enabled)
         {
