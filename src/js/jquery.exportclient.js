@@ -16,6 +16,16 @@ jQuery.widget("lx.exportClient", {
      */
     _create: function ()
     {
+        this._initialize();
+    },
+
+    /**
+     * Initializes the widget
+     *
+     * @private
+     */
+    _initialize : function()
+    {
         this.exportClient = new ExportClient(this.options.serverUrl);
         if (this.options.defaultData)
             this.setDefaultData(this.options.defaultData);

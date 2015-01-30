@@ -15,13 +15,28 @@
             background-color: #d8d8d8;
             height: 200px;
         }
+
+        .export-button {
+
+        }
+
+        .export-button .export-actions {
+            float: left;
+        }
+
+        .export-button .export-result {
+            width: 400px;
+        }
+
     </style>
 </head>
 <body>
 <div class="row-fluid">
     <form class="form-inline">
         <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
-        <a href="#" class="btn btn-primary" id="export">Export</a>
+
+        <div id="export" class="export-button"></div>
+
         <span class="status"></span>
         <div id="result"></div>
     </form>
@@ -51,30 +66,17 @@
         data.getPaperSize().getFooter().setContents('<div>Footer</div>');
 
         // Initialize export client
-        $('#export').exportClient({
+        $('#export').exportButton({
             serverUrl: $('#serverUrl').val(),
             defaultData : data
         });
 
-        // React on the button event
-        $(document).on("click", "#export", function(event)
-        {
-            $('.status').html('Exporting ...');
-            $('#export').data('lx-exportClient').export(function (result)
-            {
-                $('.status').html('Done');
-                var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
-
-                $('#result').html(download);
-            });
-        });
-
-        $('#export').on('exportclientbeforeexport', function(event)
+        // Inject data from view
+        $('#export').on('exportbuttonbeforeexport', function(event)
         {
             data.setData($('#exportTarget').html());
             data.extractStyles();
         });
-
     });
 </script>
 

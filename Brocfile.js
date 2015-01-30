@@ -59,7 +59,8 @@ var appJs = concatenate(app, {
 
 var appjQuery = concatenate(app, {
     inputFiles : [
-        'js/jquery.exportclient.js'
+        'js/jquery.exportClient.js',
+        'js/jquery.exportButton.js'
     ],
     outputFile : '/jquery.exportclient.js',
     header     : '/** Copyright LeanIX GmbH 2014 **/'
