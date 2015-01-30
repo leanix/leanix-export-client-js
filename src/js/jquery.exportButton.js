@@ -11,6 +11,9 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         this.registerListener();
     },
 
+    /**
+     * Creates the widget
+     */
     createWidget : function()
     {
         var el = $(this.element);
@@ -25,28 +28,9 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         el.append(this.result);
     },
 
-    cleanResult : function()
-    {
-        this.result.html('');
-    },
-
-    showProgress : function()
-    {
-        this.cleanResult();
-
-        var progress = $('<div></div>').addClass('progress progress-striped active');
-        $('<div></div>').addClass('bar').css('width', '100%').appendTo(progress);
-
-        this.result.append(progress);
-    },
-
-    showDownload : function(result)
-    {
-        this.cleanResult();
-        var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
-        this.result.append(download);
-    },
-
+    /**
+     * Register event handler
+     */
     registerListener : function()
     {
         var that = this;
@@ -62,5 +46,37 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
                 console.log('Finish export');
             });
         });
+    },
+
+    /**
+     * Cleans up the result
+     */
+    cleanResult : function()
+    {
+        this.result.html('');
+    },
+
+    /**
+     * Show progress spinner
+     */
+    showProgress : function()
+    {
+        this.cleanResult();
+
+        var progress = $('<div></div>').addClass('progress progress-striped active');
+        $('<div></div>').addClass('bar').css('width', '100%').appendTo(progress);
+
+        this.result.append(progress);
+    },
+
+    /**
+     * Show download button
+     * @param result
+     */
+    showDownload : function(result)
+    {
+        this.cleanResult();
+        var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
+        this.result.append(download);
     }
 });
