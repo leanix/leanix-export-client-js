@@ -79,8 +79,11 @@
         // Initialize export client
         $('#exportButton').exportButton({
             serverUrl: $('#serverUrl').val(),
-            defaultData : data
+            defaultData : data,
+            enabled : false
         });
+
+        $('#exportButton').data('lx-exportButton').setEnabled();
 
         // Inject data from view
         $('#exportButton').on('exportbuttonbeforeexport', function(event)

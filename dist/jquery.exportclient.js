@@ -68,6 +68,12 @@ jQuery.widget("lx.exportClient", {
 
 jQuery.widget("lx.exportButton", $.lx.exportClient,
 {
+    options : {
+        enabled : true,
+        labelButton : 'Save as ...',
+        cssClassButton : 'btn btn-primary'
+    },
+
     button : null,
     result : null,
 
@@ -77,6 +83,8 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
 
         this.createWidget();
         this.registerListener();
+
+        this.setEnabled(this.options.enabled);
     },
 
     /**
@@ -88,12 +96,28 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
 
         var buttonContainer = $('<div></div>').addClass('export-actions');
 
-        this.button = $('<a></a>').attr('href', '#').addClass('btn btn-primary').html('Save as PDF');
+        this.button = $('<a></a>').attr('href', '#').addClass(this.options.cssClassButton).html(this.options.labelButton);
         this.result = $('<div></div>').addClass('export-result');
 
         buttonContainer.append(this.button);
         el.append(buttonContainer);
         el.append(this.result);
+    },
+
+    /**
+     * Allows to enable or disabled to button
+     *
+     * @param enabled
+     */
+    setEnabled : function(enabled)
+    {
+        if (typeof enabled == 'undefined')
+            enabled = true;
+
+        if (enabled)
+            this.button.removeClass('disabled');
+        else
+            this.button.addClass('disabled');
     },
 
     /**
@@ -105,13 +129,14 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
 
         this.button.on('click', function()
         {
+            if (that.button.hasClass('disabled'))
+                return;
+
             that.showProgress();
 
             that.export(function(result)
             {
-                //that.result.html('Done');
                 that.showDownload(result);
-                console.log('Finish export');
             });
         });
     },
