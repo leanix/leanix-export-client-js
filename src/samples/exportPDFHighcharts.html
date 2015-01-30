@@ -105,7 +105,7 @@
             {
                 var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
 
-                $('#result').append(download);
+                $('#result').html(download);
             });
         });
     });
