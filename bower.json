@@ -1,0 +1,27 @@
+{
+  "name": "leanix-export-client",
+  "version": "1.0.0",
+  "authors": [
+    "Andre Christ <andre.christ@leanix.net>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+  },
+  "dependencies": {
+    "components-font-awesome": "3.2.1",
+    "jquery": "~2.1.1",
+    "bootstrap-css": "2.3.2",
+    "highcharts-release": "3.0.10",
+    "jquery-ui": "1.11.2"
+  }
+}
