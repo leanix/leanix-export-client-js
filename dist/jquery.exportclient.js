@@ -71,7 +71,8 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
     options : {
         enabled : true,
         labelButton : 'Save as ...',
-        cssClassButton : 'btn btn-primary'
+        cssClassButton : 'btn btn-primary',
+        disabledTooltip: 'Please wait until page is loaded.'
     },
 
     button : null,
@@ -115,9 +116,14 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
             enabled = true;
 
         if (enabled)
+        {
             this.button.removeClass('disabled');
+            this.button.attr('rel', '');
+        }
         else
-            this.button.addClass('disabled');
+        {
+            this.button.addClass('disabled').attr('rel', 'tooltip').attr('title', this.options.disabledTooltip);
+        }
     },
 
     /**
