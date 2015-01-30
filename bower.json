@@ -20,6 +20,7 @@
   "dependencies": {
     "components-font-awesome": "3.2.1",
     "jquery": "~2.1.1",
-    "bootstrap-css": "2.3.2"
+    "bootstrap-css": "2.3.2",
+    "highcharts-release": "3.0.10"
   }
 }

@@ -1,7 +1,7 @@
 function ExportMarginObject()
 {
     this.height = '';
-    this.content = '';
+    this.contents = '';
 }
 
 ExportMarginObject.prototype.setHeight = function(height)
@@ -14,13 +14,13 @@ ExportMarginObject.prototype.getHeight = function()
     return this.height;
 };
 
-ExportMarginObject.prototype.setContent = function(content)
+ExportMarginObject.prototype.setContents = function(contents)
 {
-    this.content = content;
+    this.contents = contents;
 };
 
-ExportMarginObject.prototype.getContent = function()
+ExportMarginObject.prototype.getContents = function()
 {
-    return this.content;
+    return this.contents;
 };
 
