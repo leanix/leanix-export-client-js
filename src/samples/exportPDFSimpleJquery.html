@@ -1,0 +1,85 @@
+<html>
+<head>
+    <link href="../bootstrap.css" rel="stylesheet" />
+    <link href="../font-awesome.css" rel="stylesheet" />
+
+    <script src="../jquery.js"></script>
+    <script src="../jquery-ui.js"></script>
+    <script src="../bootstrap.js"></script>
+
+    <script src="../exportclient.js"></script>
+
+    <style>
+        .simple-style {
+            background-color: #d8d8d8;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="row-fluid">
+    <form class="form-inline">
+        <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
+        <a href="#" class="btn btn-primary" id="export">Export</a>
+        <span class="status"></span>
+        <div id="result"></div>
+    </form>
+</div>
+
+
+<div id="exportTarget">
+    <div class="simple-style">
+        Hello World
+    </div>
+</div>
+
+<script>
+    $(document).ready(function()
+    {
+        var printLogo = $('#printLogo').html();
+
+        // Default data
+        var data = new ExportData();
+        data.setOutputType('PDF');
+        data.getPaperSize().setFormat('A4');
+        data.getPaperSize().setOrientation('portrait');
+        data.getPaperSize().getHeader().setHeight('0.8in');
+        data.getPaperSize().getHeader().setContents('<div><div style="float:right;">' + printLogo + '</div><h1>Header Text</h1></div>');
+        data.getPaperSize().getHeader().getImages().push(printLogo);
+        data.getPaperSize().getFooter().setHeight('0.2in');
+        data.getPaperSize().getFooter().setContents('<div>Footer</div>');
+
+        // Initialize export client
+        $('#export').exportClient({
+            serverUrl: $('#serverUrl').val(),
+            defaultData : data
+        });
+
+        // React on the button event
+        $(document).on("click", "#export", function(event)
+        {
+            $('.status').html('Exporting ...');
+            $('#export').data('lx-exportClient').export(function (result)
+            {
+                $('.status').html('Done');
+                var download = $('<a></a>').attr('href', $('#serverUrl').val() + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
+
+                $('#result').html(download);
+            });
+        });
+
+        $('#export').on('exportclientbeforeexport', function(event)
+        {
+            data.setData($('#exportTarget').html());
+            data.extractStyles();
+        });
+
+    });
+</script>
+
+<div id="printLogo" style="display:none;">
+    <img style="max-height: 50px;" src="data:image/png;base64,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" alt="" />
+</div>
+
+</body>
+</html>

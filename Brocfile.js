@@ -54,7 +54,15 @@ var appJs = concatenate(app, {
         'js/ExportMarginObject.js',
         'js/jquery.exportclient.js'
     ],
-    outputFile : '/lxexportclient.js',
+    outputFile : '/exportclient.js',
+    header     : '/** Copyright LeanIX GmbH 2014 **/'
+});
+
+var appjQuery = concatenate(app, {
+    inputFiles : [
+        'js/jquery.exportclient.js'
+    ],
+    outputFile : '/jquery.exportclient.js',
     header     : '/** Copyright LeanIX GmbH 2014 **/'
 });
 
@@ -63,11 +71,11 @@ appJs = filterReact(appJs, {extensions: ['js']});
 
 var testJs = concatenate(app, {
     inputFiles : ['test/*.js'],
-    outputFile : '/lxexportclient-test.js',
+    outputFile : '/exportclient-test.js',
     header     : '/** Copyright LeanIX GmbH 2014 **/'
 });
 
 
 
 // merge HTML, JavaScript and CSS trees into a single tree and export it
-module.exports = mergeTrees([extraAssetsBootstrap, htmlFiles, appJs, testJs, bowerTrees, extraAssets, extraAssetsBoot, fonts], {overwrite: true});
+module.exports = mergeTrees([extraAssetsBootstrap, htmlFiles, appJs, appjQuery, testJs, bowerTrees, extraAssets, extraAssetsBoot, fonts], {overwrite: true});

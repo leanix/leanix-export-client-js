@@ -32,6 +32,23 @@ ExportData.prototype.getData = function()
     return this.data;
 };
 
+ExportData.prototype.extractStyles = function()
+{
+    var buffer = "";
+    for (var i = 0; i < document.styleSheets.length; i++)
+    {
+        if (document.styleSheets[i].cssRules)
+        {
+            for (var j = 0; j < document.styleSheets[i].cssRules.length; j++)
+            {
+                buffer += document.styleSheets[i].cssRules[j].cssText;
+            }
+        }
+    }
+
+    this.setStyles(buffer);
+};
+
 ExportData.prototype.setStyles = function(data)
 {
     this.styles = data;
@@ -62,9 +79,9 @@ ExportData.prototype.getOutputType = function()
     return this.outputType;
 };
 
-ExportData.prototype.getPapersize = function()
+ExportData.prototype.getPaperSize = function()
 {
-    return this.papersize;
+    return this.paperSize;
 };
 
 
@@ -94,6 +111,7 @@ ExportClient.prototype.export = function (exportData, onSuccess, onError)
         async: true,
         success: function (result)
         {
+            console.log(result);
             if (result.status != 'OK')
             {
                 if (onError)
@@ -164,7 +182,8 @@ ExportPaperSize.prototype.getFooter = function()
 function ExportMarginObject()
 {
     this.height = '';
-    this.content = '';
+    this.contents = '';
+    this.images = [];
 }
 
 ExportMarginObject.prototype.setHeight = function(height)
@@ -177,13 +196,85 @@ ExportMarginObject.prototype.getHeight = function()
     return this.height;
 };
 
-ExportMarginObject.prototype.setContent = function(content)
+ExportMarginObject.prototype.setContents = function(contents)
 {
-    this.content = content;
+    this.contents = contents;
 };
 
-ExportMarginObject.prototype.getContent = function()
+ExportMarginObject.prototype.getContents = function()
 {
-    return this.content;
+    return this.contents;
 };
+
+ExportMarginObject.prototype.setImages = function(images)
+{
+    this.images = images;
+};
+
+ExportMarginObject.prototype.getImages = function(images)
+{
+    return this.images;
+};
+
+ExportMarginObject.prototype.addImage = function(image)
+{
+    this.images.push(image);
+};
+
+
+
+jQuery.widget("lx.exportClient", {
+    options: {
+        serverUrl: "https://export.leanix.net",
+        defaultData : null
+    },
+
+    // Internal export client
+    exportClient : null,
+    defaultData : new ExportData(),
+
+    /**
+     * Constructor method
+     *
+     * @private
+     */
+    _create: function ()
+    {
+        this.exportClient = new ExportClient(this.options.serverUrl);
+        if (this.options.defaultData)
+            this.setDefaultData(this.options.defaultData);
+    },
+
+    /**
+     * Gets the current defaultData
+     * @returns {*}
+     */
+    getDefaultData : function()
+    {
+        return this.defaultData;
+    },
+
+    /**
+     * Set the default export data to be used
+     * @param defaultData
+     */
+    setDefaultData : function(defaultData)
+    {
+        this.defaultData = defaultData;
+    },
+
+
+    /**
+     * Main method to start the export. onSuccess is called
+     * @param onSuccess
+     */
+    export : function (onSuccess)
+    {
+        var data = this.getDefaultData();
+
+        this._trigger('beforeExport', null, data);
+
+        this.exportClient.export(data, onSuccess);
+    }
+});
 

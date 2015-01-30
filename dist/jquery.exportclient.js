@@ -1,3 +1,4 @@
+/** Copyright LeanIX GmbH 2014 **/
 
 jQuery.widget("lx.exportClient", {
     options: {

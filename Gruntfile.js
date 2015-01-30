@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'app',
-                    src: '**/lxexport*',
+                    src: ['**/exportclient*', '**/jquery.exportclient.js'],
                     dest: 'dist'
                 }]
             }
