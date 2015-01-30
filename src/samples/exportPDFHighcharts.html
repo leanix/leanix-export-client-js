@@ -90,10 +90,11 @@
             var client = new ExportClient($('#serverUrl').val());
             var data = new ExportData();
 
-            data.setData($('#exportTarget').html());
+            data.setData($('#exportTarget svg').parent().html());
             data.extractStyles();
             data.setOutputType('PDF');
-            data.getPaperSize().setFormat('A3');
+            data.setInputType('SVG');
+            data.getPaperSize().setFormat('A0');
             data.getPaperSize().setOrientation('landscape');
 
             data.getPaperSize().getHeader().setHeight('0.8in');

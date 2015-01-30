@@ -16,6 +16,7 @@
         .simple-style {
             background-color: #d8d8d8;
             height: 200px;
+            text-align: right;
         }
 
         .export-button {
@@ -37,7 +38,7 @@
         <input type="text" id="serverUrl" value="https://local-dev.leanix.net/services/export">
         <select id="contentTarget">
             <option value="#exportTarget">HTML Table</option>
-            <option value="#highcharts">Highcharts</option>
+            <option value="#highcharts svg">Highcharts</option>
         </select>
         <div id="exportButton" class="export-button"></div>
         <div id="exportDialog"></div>
@@ -49,14 +50,14 @@
 </div>
 
 
-<div id="exportTarget">
-    <div class="simple-style">
-        Hello World
+<div>
+    <div id="exportTarget" class="simple-style">
+        <div>Hello World</div>
     </div>
 </div>
 
-<div id="highcharts">
-    <div style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div>
+    <div id="highcharts" style="height: 400px; margin: 0 auto"></div>
 </div>
 
 <script>
@@ -85,7 +86,7 @@
         $('#exportButton').on('exportbuttonbeforeexport', function(event)
         {
             var selector = $('#contentTarget option:selected').val();
-            data.setData($(selector).html());
+            data.setData($(selector).parent().html());
             data.extractStyles();
         });
 
@@ -102,7 +103,7 @@
         $('#exportDialog').on('exportdialogbeforeexport', function(event)
         {
             var selector = $('#contentTarget option:selected').val();
-            data.setData($(selector).html());
+            data.setData($(selector).parent().html());
             data.extractStyles();
         });
 
