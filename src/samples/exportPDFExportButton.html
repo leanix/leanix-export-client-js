@@ -17,7 +17,6 @@
         }
 
         .export-button {
-
         }
 
         .export-button .export-actions {
@@ -61,7 +60,7 @@
         data.getPaperSize().setOrientation('portrait');
         data.getPaperSize().getHeader().setHeight('0.8in');
         data.getPaperSize().getHeader().setContents('<div><div style="float:right;">' + printLogo + '</div><h1>Header Text</h1></div>');
-        data.getPaperSize().getHeader().getImages().push(printLogo);
+        data.getPaperSize().getHeader().addImage(printLogo);
         data.getPaperSize().getFooter().setHeight('0.2in');
         data.getPaperSize().getFooter().setContents('<div>Footer</div>');
 
