@@ -111,15 +111,15 @@ ExportClient.prototype.export = function (exportData, onSuccess, onError)
         async: true,
         success: function (result)
         {
-            console.log(result);
             if (result.status != 'OK')
             {
-                if (onError)
+                if (typeof onError == 'function')
                     onError(result);
             }
             else
             {
-                onSuccess(result);
+                if (typeof onSucess == 'function')
+                    onSuccess(result);
             }
         }
     });
