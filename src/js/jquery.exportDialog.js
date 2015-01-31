@@ -241,5 +241,14 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
         this._cleanResult();
         var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
         this.result.append(download);
+    },
+
+    /**
+     * Process error
+     */
+    processError : function(error)
+    {
+        var alert = $('<div></div>').html(error).addClass('alert alert-error');
+        this.result.append(alert);
     }
 });

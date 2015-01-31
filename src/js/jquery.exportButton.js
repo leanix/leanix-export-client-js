@@ -112,5 +112,15 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         this.cleanResult();
         var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
         this.result.append(download);
+    },
+
+    /**
+     * Process error
+     */
+    processError : function(error)
+    {
+        this.cleanResult();
+        var alert = $('<span></span>').html(error).addClass('text-error');
+        this.result.append(alert);
     }
 });

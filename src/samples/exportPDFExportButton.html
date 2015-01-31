@@ -83,11 +83,12 @@
             enabled : false
         });
 
-        //$('#exportButton').data('lx-exportButton').setEnabled();
+        $('#exportButton').data('lx-exportButton').setEnabled();
 
         // Inject data from view
         $('#exportButton').on('exportbuttonbeforeexport', function(event)
         {
+            throw 'unable to do'; //Stops the processing
             var selector = $('#contentTarget option:selected').val();
             data.setData($(selector).parent().html());
             data.extractStyles();
@@ -105,6 +106,8 @@
 
         $('#exportDialog').on('exportdialogbeforeexport', function(event)
         {
+            //throw 'unable to do'; //Stops the processing
+
             var selector = $('#contentTarget option:selected').val();
             data.setData($(selector).parent().html());
             data.extractStyles();

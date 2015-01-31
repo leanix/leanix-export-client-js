@@ -50,6 +50,14 @@ jQuery.widget("lx.exportClient", {
         this.defaultData = defaultData;
     },
 
+    /**
+     * Deal with the error resulting from the export
+     * @param error
+     */
+    processError : function(error)
+    {
+        this._trigger('onError', null, error);
+    },
 
     /**
      * Main method to start the export. onSuccess is called
@@ -58,10 +66,24 @@ jQuery.widget("lx.exportClient", {
     export : function (onSuccess)
     {
         var data = this.getDefaultData();
+        var that = this;
 
-        this._trigger('beforeExport', null, data);
+        try
+        {
+            this._trigger('beforeExport', null, data);
+            this.exportClient.export(data, function(result)
+            {
+                that._trigger('onSuccess', null, result);
 
-        this.exportClient.export(data, onSuccess);
+                if (typeof onSuccess == 'function')
+                    onSuccess(result);
+            });
+
+        }
+        catch (ex)
+        {
+            this.processError(ex);
+        }
     }
 });
 
@@ -180,6 +202,16 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         this.cleanResult();
         var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
         this.result.append(download);
+    },
+
+    /**
+     * Process error
+     */
+    processError : function(error)
+    {
+        this.cleanResult();
+        var alert = $('<span></span>').html(error).addClass('text-error');
+        this.result.append(alert);
     }
 });
 jQuery.widget("lx.exportDialog", $.lx.exportClient,
@@ -425,5 +457,14 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
         this._cleanResult();
         var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
         this.result.append(download);
+    },
+
+    /**
+     * Process error
+     */
+    processError : function(error)
+    {
+        var alert = $('<div></div>').html(error).addClass('alert alert-error');
+        this.result.append(alert);
     }
 });

@@ -49,6 +49,14 @@ jQuery.widget("lx.exportClient", {
         this.defaultData = defaultData;
     },
 
+    /**
+     * Deal with the error resulting from the export
+     * @param error
+     */
+    processError : function(error)
+    {
+        this._trigger('onError', null, error);
+    },
 
     /**
      * Main method to start the export. onSuccess is called
@@ -57,10 +65,24 @@ jQuery.widget("lx.exportClient", {
     export : function (onSuccess)
     {
         var data = this.getDefaultData();
+        var that = this;
 
-        this._trigger('beforeExport', null, data);
+        try
+        {
+            this._trigger('beforeExport', null, data);
+            this.exportClient.export(data, function(result)
+            {
+                that._trigger('onSuccess', null, result);
 
-        this.exportClient.export(data, onSuccess);
+                if (typeof onSuccess == 'function')
+                    onSuccess(result);
+            });
+
+        }
+        catch (ex)
+        {
+            this.processError(ex);
+        }
     }
 });
 
