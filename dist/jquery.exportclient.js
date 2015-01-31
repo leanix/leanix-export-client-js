@@ -221,6 +221,7 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
     result : null,
 
     options: {
+        dialogTitle : 'Export',
         outputTypes : ['PDF', 'PNG', 'SVG'],
         paperOrientations : [
             {value: 'portrait', label : 'Portrait'},
@@ -282,7 +283,7 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
             }
         ];
 
-        this.dialog = bootbox.dialog('loading', buttons, {header: 'Save as PDF', animate: false});
+        this.dialog = bootbox.dialog('loading', buttons, {header: this.options.dialogTitle, animate: false});
 
         this._createBody();
     },
