@@ -51,7 +51,7 @@ ExportData.prototype.encodeImage = function (image)
     image.src  = canvas.toDataURL("image/png");
 };
 
-ExportData.prototype.setElement = function(element, doClone, callback)
+ExportData.prototype.setElement = function(element, callback, doClone)
 {
     if (typeof doClone == 'undefined') doClone = true;
 
@@ -81,7 +81,7 @@ ExportData.prototype.selectData = function(dataSelector, callback)
     if (!element.length)
         throw 'Unable to find data selector ' + dataSelector;
 
-    this.setElement(element, true, callback);
+    this.setElement(element, callback, true);
 };
 
 ExportData.prototype.extractStyles = function()

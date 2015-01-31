@@ -88,9 +88,9 @@
         // Inject data from view
         $('#exportButton').on('exportbuttonbeforeexport', function(event)
         {
-            throw 'unable to do'; //Stops the processing
+            //throw 'unable to do'; //Stops the processing
             var selector = $('#contentTarget option:selected').val();
-            data.setData($(selector).parent().html());
+            data.setElement($(selector));
             data.extractStyles();
         });
 
