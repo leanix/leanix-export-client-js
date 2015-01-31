@@ -4,7 +4,7 @@ function ExportData()
     this.name = 'export';
     this.inputType = 'html';
     this.outputType = 'pdf';
-    this.styles = '';
+    this.styles = null;
     this.data = '';
 
     this.paperSize = new ExportPaperSize();
@@ -30,6 +30,58 @@ ExportData.prototype.setData = function(data)
 ExportData.prototype.getData = function()
 {
     return this.data;
+};
+
+ExportData.prototype.finalizeData = function(data)
+{
+    data.find('.modal-backdrop').remove().end()
+        .find('.noExport').remove().end();
+
+    return data.html().replace(/€/g, '&euro;').replace(/·/g, '&middot;');
+};
+
+ExportData.prototype.encodeImage = function (image)
+{
+    var canvas = document.createElement("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0);
+    image.src  = canvas.toDataURL("image/png");
+};
+
+ExportData.prototype.setElement = function(element, doClone, callback)
+{
+    if (typeof doClone == 'undefined') doClone = true;
+
+    var data = element;
+    if (doClone)
+        data = element.clone();
+
+    var result = data.wrap('<div>').parent();
+
+    var that = this;
+    result.find('img').each(function () {
+        that.encodeImage(this);
+    });
+
+    if (typeof callback == 'function')
+        callback(result);
+
+    this.setData(this.finalizeData(result));
+    if (this.styles == null)
+        this.extractStyles();
+};
+
+ExportData.prototype.selectData = function(dataSelector, callback)
+{
+    var element = $(dataSelector);
+
+    if (!element.length)
+        throw 'Unable to find data selector ' + dataSelector;
+
+    this.setElement(element, true, callback);
 };
 
 ExportData.prototype.extractStyles = function()

@@ -81,6 +81,10 @@ jQuery.widget("lx.exportClient", {
         }
         catch (ex)
         {
+            var hasLogger = !!(window.console && window.console.log);
+            if (hasLogger)
+                console.log(ex);
+
             this.processError(ex);
         }
     }
