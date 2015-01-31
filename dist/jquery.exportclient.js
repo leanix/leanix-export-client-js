@@ -225,7 +225,7 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
         outputTypes : ['PDF', 'PNG', 'SVG'],
         paperOrientations : [
             {value: 'portrait', label : 'Portrait'},
-            {value: 'portrait', label : 'Landscape'}
+            {value: 'landscape', label : 'Landscape'}
         ],
         paperFormats : [
             {value: 'a4', label : 'A4'},
