@@ -30,7 +30,7 @@ ExportClient.prototype.export = function (exportData, onSuccess, onError)
             }
             else
             {
-                if (typeof onSucess == 'function')
+                if (typeof onSuccess == 'function')
                     onSuccess(result);
             }
         }

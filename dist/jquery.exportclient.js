@@ -456,8 +456,9 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
     showDownload : function(result)
     {
         this._cleanResult();
-        var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary');
+        var download = $('<a></a>').attr('href', this.options.serverUrl + '/' + result.data.relativeUrl).html('Download').addClass('btn btn-primary').hide();
         this.result.append(download);
+        download.fadeIn();
     },
 
     /**
