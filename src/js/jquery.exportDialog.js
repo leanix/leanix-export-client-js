@@ -41,7 +41,7 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
             "class" : "btn-primary",
                 "callback": function()
                 {
-                    that._cleanResult();
+                    that.showProgress();
 
                     that.getDefaultData().setOutputType(that.getOutputType());
 
@@ -251,5 +251,18 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
     {
         var alert = $('<div></div>').html(error).addClass('alert alert-error');
         this.result.append(alert);
+    },
+
+    /**
+     * Show progress spinner
+     */
+    showProgress : function()
+    {
+        this._cleanResult();
+
+        var progress = $('<div></div>').addClass('progress progress-striped active');
+        $('<div></div>').addClass('bar').css('width', '100%').appendTo(progress);
+
+        this.result.append(progress);
     }
 });
