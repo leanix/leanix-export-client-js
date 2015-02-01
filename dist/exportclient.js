@@ -190,6 +190,18 @@ ExportData.prototype.extractStyles = function()
         }
     }
 
+    var getLocation = function()
+    {
+        var l = document.createElement("a");
+        l.href = window.location.href;
+        return l;
+    };
+    var hostname = getLocation().hostname.replace(/\./g, '\\.');
+    var protocol = getLocation().protocol;
+
+    var regExp = new RegExp(protocol + '//' + hostname, 'g');
+    buffer = buffer.replace(regExp, "..");
+
     this.setStyles(buffer);
 };
 
