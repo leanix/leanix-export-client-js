@@ -14,8 +14,12 @@
 
     <style>
         .simple-style {
+            width: 1200px;
+            height: 600px;
+            text-align: right;
             background-color: #d8d8d8;
-            height: 200px;
+            border: 1px solid red;
+            box-sizing: border-box;
             text-align: right;
         }
 
@@ -29,6 +33,7 @@
         .export-button .export-result {
             width: 400px;
         }
+
 
     </style>
 </head>
@@ -52,7 +57,7 @@
 
 <div>
     <div id="exportTarget" class="simple-style">
-        <div>Hello World</div>
+        Hello World
     </div>
 </div>
 
@@ -67,18 +72,20 @@
 
         // Default data
         var data = new ExportData();
-        data.setOutputType('PDF');
+        data.setOutputType('pdf');
 
         // PDF only
-        data.getPaperSize().setFormat('A4');
-        data.getPaperSize().setMargin('0.3in');
+
+        data.getPaperSize().setFormat('A0');
+        //data.getPaperSize().setMargin('0.3in');
         data.getPaperSize().setOrientation('portrait');
-        data.getPaperSize().getHeader().setHeight('0.8in');
+        /*data.getPaperSize().getHeader().setHeight('0.8in');
         data.getPaperSize().getHeader().setContents('<div><div style="float:right;">' + printLogo + '</div><h1>Header Text</h1></div>');
         data.getPaperSize().getHeader().addImage(printLogo);
         data.getPaperSize().getFooter().setHeight('0.3in');
-        data.getPaperSize().getFooter().setContents('<div>Footer</div>');
+        data.getPaperSize().getFooter().setContents('<div>Footer</div>');*/
 
+        //data.setZoomFactor(2);
         data.setAutoScale(true);
 
         // Initialize export client
