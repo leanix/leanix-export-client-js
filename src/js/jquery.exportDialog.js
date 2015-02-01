@@ -37,7 +37,11 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
 
         var buttons = [
             {
-            "label" : "Save",
+                "label" : "Cancel",
+                "class" : "btn"
+            },
+            {
+            "label" : "Export",
             "class" : "btn-primary",
                 "callback": function()
                 {
@@ -60,10 +64,6 @@ jQuery.widget("lx.exportDialog", $.lx.exportClient,
                     });
                     return false;
                 }
-            },
-            {
-            "label" : "Cancel",
-            "class" : "btn"
             }
         ];
 
