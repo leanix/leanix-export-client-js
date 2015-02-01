@@ -11,6 +11,15 @@ jQuery.widget("lx.exportClient", {
     defaultData : new ExportData(),
 
     /**
+     * Enables or disables calculcation of dimensions before export
+     * @param calcDimension
+     */
+    setCalcDimension : function(calcDimension)
+    {
+        this.options.calcDimension = calcDimension;
+    },
+
+    /**
      * Constructor method
      *
      * @private
