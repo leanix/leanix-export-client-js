@@ -148,15 +148,15 @@ ExportClient.prototype.setServerUrl = function(url)
     this.serverUrl = url;
 };
 
-ExportClient.prototype.export = function (exportData, onSuccess, onError)
+ExportClient.prototype._submit = function(type, endpoint, exportData, onSuccess, onError)
 {
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: this.serverUrl + '/exports',
-        type: 'POST',
+        url: this.serverUrl + endpoint,
+        type: type,
         data: JSON.stringify(exportData),
         dataType: 'json',
         cache: false,
@@ -175,8 +175,17 @@ ExportClient.prototype.export = function (exportData, onSuccess, onError)
             }
         }
     });
+}
+
+ExportClient.prototype.export = function (exportData, onSuccess, onError)
+{
+    this._submit('POST', '/exports', exportData, onSuccess, onError);
 };
 
+ExportClient.prototype.getDimension = function (exportData, onSuccess, onError)
+{
+    this._submit('POST', '/dimensions', exportData, onSuccess, onError);
+};
 
 function ExportPaperSize()
 {
@@ -185,6 +194,7 @@ function ExportPaperSize()
     this.margin = '';
     this.header = new ExportMarginObject();
     this.footer = new ExportMarginObject();
+    this.dimension = null;
 }
 
 ExportPaperSize.prototype.setFormat = function(format)
@@ -226,6 +236,17 @@ ExportPaperSize.prototype.getFooter = function()
 {
     return this.footer;
 };
+
+ExportPaperSize.prototype.setDimension = function(dimension)
+{
+    this.dimension = dimension;
+};
+
+ExportPaperSize.prototype.getDimension = function()
+{
+    return this.dimension;
+};
+
 
 
 

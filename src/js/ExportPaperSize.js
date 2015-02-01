@@ -5,6 +5,7 @@ function ExportPaperSize()
     this.margin = '';
     this.header = new ExportMarginObject();
     this.footer = new ExportMarginObject();
+    this.dimension = null;
 }
 
 ExportPaperSize.prototype.setFormat = function(format)
@@ -46,6 +47,17 @@ ExportPaperSize.prototype.getFooter = function()
 {
     return this.footer;
 };
+
+ExportPaperSize.prototype.setDimension = function(dimension)
+{
+    this.dimension = dimension;
+};
+
+ExportPaperSize.prototype.getDimension = function()
+{
+    return this.dimension;
+};
+
 
 
 
