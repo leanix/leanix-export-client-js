@@ -1,4 +1,94 @@
 /** Copyright LeanIX GmbH 2014 **/
+function ExportPaperSize()
+{
+    this.format = '';
+    this.orientation = '';
+    this.margin = '';
+    this.header = new ExportMarginObject();
+    this.footer = new ExportMarginObject();
+    this.dimension = null;
+}
+
+ExportPaperSize.prototype.setFormat = function(format)
+{
+    this.format = format;
+};
+
+ExportPaperSize.prototype.getFormat = function()
+{
+    return this.format;
+};
+
+ExportPaperSize.prototype.setOrientation = function(orientation)
+{
+    this.orientation = orientation;
+};
+
+ExportPaperSize.prototype.getOrientation = function()
+{
+    return this.orientation;
+};
+
+ExportPaperSize.prototype.setMargin = function(margin)
+{
+    this.margin = margin;
+};
+
+ExportPaperSize.prototype.getMargin = function()
+{
+    return this.margin;
+};
+
+ExportPaperSize.prototype.getHeader = function()
+{
+    return this.header;
+};
+
+ExportPaperSize.prototype.getFooter = function()
+{
+    return this.footer;
+};
+
+ExportPaperSize.prototype.setDimension = function(dimension)
+{
+    this.dimension = dimension;
+};
+
+ExportPaperSize.prototype.getDimension = function()
+{
+    return this.dimension;
+};
+
+
+
+
+
+
+function ExportViewportSize()
+{
+    this.width = null;
+    this.height = null;
+}
+
+ExportViewportSize.prototype.setWidth = function(width)
+{
+    this.width = width;
+};
+
+ExportViewportSize.prototype.getWidth = function()
+{
+    return this.width;
+};
+
+ExportViewportSize.prototype.setHeight = function(height)
+{
+    this.height = height;
+};
+
+ExportViewportSize.prototype.getHeight = function()
+{
+    return this.height;
+};
 function ExportData()
 {
     this.name = 'export';
@@ -9,6 +99,7 @@ function ExportData()
     this.paperSize = new ExportPaperSize();
     this.autoScale = false;
     this.zoomFactor = 1;
+    this.viewportSize = new ExportViewportSize();
 }
 
 ExportData.prototype.INPUT_HTML = 'html';
@@ -157,6 +248,15 @@ ExportData.prototype.getZoomFactor = function()
     return this.zoomFactor;
 };
 
+ExportData.prototype.setViewportSize = function(viewportSize)
+{
+    this.viewportSize = viewportSize;
+};
+
+ExportData.prototype.getViewportSize = function()
+{
+    return this.viewportSize;
+};
 
 
 
@@ -210,71 +310,6 @@ ExportClient.prototype.getDimension = function (exportData, onSuccess, onError)
 {
     this._submit('POST', '/dimensions', exportData, onSuccess, onError);
 };
-
-function ExportPaperSize()
-{
-    this.format = '';
-    this.orientation = '';
-    this.margin = '';
-    this.header = new ExportMarginObject();
-    this.footer = new ExportMarginObject();
-    this.dimension = null;
-}
-
-ExportPaperSize.prototype.setFormat = function(format)
-{
-    this.format = format;
-};
-
-ExportPaperSize.prototype.getFormat = function()
-{
-    return this.format;
-};
-
-ExportPaperSize.prototype.setOrientation = function(orientation)
-{
-    this.orientation = orientation;
-};
-
-ExportPaperSize.prototype.getOrientation = function()
-{
-    return this.orientation;
-};
-
-ExportPaperSize.prototype.setMargin = function(margin)
-{
-    this.margin = margin;
-};
-
-ExportPaperSize.prototype.getMargin = function()
-{
-    return this.margin;
-};
-
-ExportPaperSize.prototype.getHeader = function()
-{
-    return this.header;
-};
-
-ExportPaperSize.prototype.getFooter = function()
-{
-    return this.footer;
-};
-
-ExportPaperSize.prototype.setDimension = function(dimension)
-{
-    this.dimension = dimension;
-};
-
-ExportPaperSize.prototype.getDimension = function()
-{
-    return this.dimension;
-};
-
-
-
-
-
 
 function ExportMarginObject()
 {

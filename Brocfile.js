@@ -48,9 +48,10 @@ var fonts = pickFiles('bower_components/components-font-awesome', {
 
 var appJs = concatenate(app, {
     inputFiles : [
+        'js/ExportPaperSize.js',
+        'js/ExportViewportSize.js',
         'js/ExportData.js',
         'js/ExportClient.js',
-        'js/ExportPaperSize.js',
         'js/ExportMarginObject.js'
     ],
     outputFile : '/exportclient.js',

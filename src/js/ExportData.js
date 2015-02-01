@@ -8,6 +8,7 @@ function ExportData()
     this.paperSize = new ExportPaperSize();
     this.autoScale = false;
     this.zoomFactor = 1;
+    this.viewportSize = new ExportViewportSize();
 }
 
 ExportData.prototype.INPUT_HTML = 'html';
@@ -156,6 +157,15 @@ ExportData.prototype.getZoomFactor = function()
     return this.zoomFactor;
 };
 
+ExportData.prototype.setViewportSize = function(viewportSize)
+{
+    this.viewportSize = viewportSize;
+};
+
+ExportData.prototype.getViewportSize = function()
+{
+    return this.viewportSize;
+};
 
 
 
