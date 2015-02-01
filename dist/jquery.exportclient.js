@@ -78,7 +78,7 @@ jQuery.widget("lx.exportClient", {
         var data = this.getDefaultData();
         var that = this;
 
-        if (this.options.calcDimension)
+        if (data.getOutputType().toLowerCase() == 'pdf' && this.options.calcDimension)
         {
             this.exportClient.getDimension(data, function(result)
             {
