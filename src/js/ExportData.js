@@ -5,8 +5,9 @@ function ExportData()
     this.outputType = 'pdf';
     this.styles = null;
     this.data = '';
-
     this.paperSize = new ExportPaperSize();
+    this.autoScale = false;
+    this.zoomFactor = 1;
 }
 
 ExportData.prototype.INPUT_HTML = 'html';
@@ -134,5 +135,28 @@ ExportData.prototype.getPaperSize = function()
 {
     return this.paperSize;
 };
+
+ExportData.prototype.setAutoScale = function(autoScale)
+{
+    this.autoScale = autoScale;
+};
+
+ExportData.prototype.getAutoScale = function()
+{
+    return this.autoScale;
+};
+
+ExportData.prototype.setZoomFactor = function(zoomFactor)
+{
+    this.zoomFactor = zoomFactor;
+};
+
+ExportData.prototype.getZoomFactor = function()
+{
+    return this.zoomFactor;
+};
+
+
+
 
 

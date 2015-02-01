@@ -68,14 +68,18 @@
         // Default data
         var data = new ExportData();
         data.setOutputType('PDF');
+
+        // PDF only
         data.getPaperSize().setFormat('A4');
-        data.getPaperSize().setMargin('40px');
+        data.getPaperSize().setMargin('0.3in');
         data.getPaperSize().setOrientation('portrait');
-        data.getPaperSize().getHeader().setHeight('150px');
+        data.getPaperSize().getHeader().setHeight('0.8in');
         data.getPaperSize().getHeader().setContents('<div><div style="float:right;">' + printLogo + '</div><h1>Header Text</h1></div>');
         data.getPaperSize().getHeader().addImage(printLogo);
-        data.getPaperSize().getFooter().setHeight('50px');
+        data.getPaperSize().getFooter().setHeight('0.3in');
         data.getPaperSize().getFooter().setContents('<div>Footer</div>');
+
+        data.setAutoScale(true);
 
         // Initialize export client
         $('#exportButton').exportButton({
