@@ -90,12 +90,20 @@ ExportData.prototype.extractStyles = function()
     var buffer = "";
     for (var i = 0; i < document.styleSheets.length; i++)
     {
-        if (document.styleSheets[i].cssRules)
+        try
         {
-            for (var j = 0; j < document.styleSheets[i].cssRules.length; j++)
+            if (document.styleSheets[i].cssRules)
             {
-                buffer += document.styleSheets[i].cssRules[j].cssText;
+                for (var j = 0; j < document.styleSheets[i].cssRules.length; j++)
+                {
+                    buffer += document.styleSheets[i].cssRules[j].cssText;
+                }
             }
+        }
+        catch (e)
+        {
+            if(e.name !== 'SecurityError')
+                throw e;
         }
     }
 

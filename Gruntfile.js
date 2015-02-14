@@ -44,6 +44,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('watch:debug', ['broccoli:debug:watch']);
 
-    grunt.registerTask('server:debug', ['broccoli:debug:serve']);
-    grunt.registerTask('server:public', ['broccoli:public:serve']);
+    grunt.registerTask('serve', ['serve:debug']);
+    grunt.registerTask('serve:debug', ['broccoli:debug:serve']);
+    grunt.registerTask('serve:public', ['broccoli:public:serve']);
 };
