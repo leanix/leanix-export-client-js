@@ -323,12 +323,12 @@ ExportClient.prototype._submit = function(type, endpoint, exportData, onSuccess,
 
 ExportClient.prototype.export = function (exportData, onSuccess, onError)
 {
-    this._submit('POST', '/exports', exportData, onSuccess, onError);
+    this._submit('POST', '/exports/', exportData, onSuccess, onError);
 };
 
 ExportClient.prototype.getDimension = function (exportData, onSuccess, onError)
 {
-    this._submit('POST', '/dimensions', exportData, onSuccess, onError);
+    this._submit('POST', '/dimensions/', exportData, onSuccess, onError);
 };
 
 function ExportMarginObject()
