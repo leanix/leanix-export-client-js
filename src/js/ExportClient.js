@@ -18,7 +18,6 @@ ExportClient.prototype._submit = function(type, endpoint, exportData, onSuccess,
         url: this.serverUrl + endpoint,
         type: type,
         data: JSON.stringify(exportData),
-        dataType: 'json',
         cache: false,
         async: true,
         success: function (result)
