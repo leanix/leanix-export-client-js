@@ -301,7 +301,7 @@ ExportClient.prototype._submit = function(type, endpoint, exportData, onSuccess,
         },
         url: this.serverUrl + endpoint,
         type: type,
-        data: JSON.stringify(exportData),
+        data: JSON.stringify(exportData, this.replacer),
         cache: false,
         async: true,
         success: function (result)
@@ -319,6 +319,17 @@ ExportClient.prototype._submit = function(type, endpoint, exportData, onSuccess,
         }
     });
 }
+
+ExportClient.prototype.replacer = function (key, value)
+{
+    if(key == "footerText")
+    {
+        return undefined
+    } else {
+        return value;
+    }
+
+};
 
 ExportClient.prototype.export = function (exportData, onSuccess, onError)
 {
