@@ -1,2 +1,8 @@
 /nbproject
 .idea
+
+/bower_components/
+/build/
+/node_modules/
+/tmp/
+/app/
