@@ -179,6 +179,7 @@ jQuery.widget("lx.exportButton", $.lx.exportClient,
         {
             this.button.removeClass('disabled');
             this.button.attr('rel', '');
+            this.button.attr('data-original-title', '');
         }
         else
         {
