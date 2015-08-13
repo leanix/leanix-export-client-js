@@ -1,6 +1,6 @@
 {
     "name": "leanix-export-client",
-    "version": "0.0.0",
+    "version": "0.2.1",
     "description": "JQuery library to use leanix export / printing",
     "main": "jquery.leanix-export-client.js",
     "scripts": {
