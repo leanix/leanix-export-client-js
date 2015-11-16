@@ -30,7 +30,7 @@
     },
     "dependencies": {
         "react": "0.12.2",
-        "bootbox": "git+ssh://git@github.com:makeusabrew/bootbox.git#v3.3.0"
+        "bootbox.js": "git+ssh://git@github.com:makeusabrew/bootbox.git#v3.3.0"
     },
     "author": {
         "name": "Daniel Pozzi",
